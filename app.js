@@ -2,9 +2,9 @@ let listOfemployees = [];
 
 const ObjectEmployees = {
     id: '',
-    Name: '',
-    Apellido: '',
-    edad: 0,
+    name: '',
+    lastname: '',
+    age: 0,
 }
 
 let editing = false;
@@ -58,6 +58,11 @@ function AddEmployees (){
 }
 
 function ShowEmployees(){
+
+    CleanHtml();
+
+
+
     const divemployees = document.querySelector('.divemployees');
 
     listOfemployees.forEach(employees => {
@@ -86,4 +91,8 @@ function ShowEmployees(){
         divemployees.appendChild(hr);
 
     });
+
+    function CleanHtml(){
+        const divemployees = document.querySelector('.divemployees');
+    }
 }
