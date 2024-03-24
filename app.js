@@ -37,7 +37,7 @@ function ValidateForm(e) {
     }
 
     if(editing){
-        //editingEmployees();
+        editingEmployees();
 
         editing = false;
     }  else{
@@ -56,7 +56,7 @@ function AddEmployees (){
 
     ShowEmployees();
 
-    forms.reset();
+    form.reset();
 
     CleanObject();
 }
@@ -80,22 +80,24 @@ function ShowEmployees(){
 
     const divemployees = document.querySelector('.divemployees');
 
-    listOfemployees.forEach(employees => {
-        const {id, name, lastname, age} = employees;
+    listOfemployees.forEach(employee => {
+        const {id, name, lastname, age} = employee;
 
         const paragraph = document.createElement('p');
         paragraph.textContent = `${id} - ${name} - ${lastname} - ${age} - `;
 
         paragraph.dataset.id = id;
 
+
+
         const editingbtn = document.createElement ('button');
-        //editingbtn.onclick = () => loademployee(employee);
+        editingbtn.onclick = () => loademployee(employee);
         editingbtn.textContent = 'edit' ;
         editingbtn.classList.add('btn','btn-edit');
         paragraph.append(editingbtn);
 
         const deletebtn = document.createElement ('button');
-        //deletebtn.onclick = () => deleteemployee(id);
+        deletebtn.onclick = () => deleteemployee(id);
         deletebtn.textContent = 'delete' ;
         deletebtn.classList.add('btn','btn-delete');
         paragraph.append(deletebtn);
@@ -106,6 +108,62 @@ function ShowEmployees(){
         divemployees.appendChild(hr);
 
     })
+}
+
+
+
+function loademployee(employee){
+    const {id, name, lastname, age} = employee;
+
+    nameInput.value = name;
+    lastnameInput.value = lastname;
+    ageInput.value = age;
+    
+    ObjectEmployees.id = id; 
+
+    form.querySelector('button[type="submit"]').textContent = 'update'; 
+
+    editing = true;
+}
+
+function editingEmployees(){
+
+    ObjectEmployees.name =  nameInput.value;
+    ObjectEmployees.lastname = lastnameInput.value;
+    ObjectEmployees.age = ageInput.value;
+
+
+    listOfemployees.map(employee => {
+
+        if(employee.id === ObjectEmployees.id){
+
+            employee.id = ObjectEmployees.id;
+            employee.name = ObjectEmployees.name;
+            employee.lastname = ObjectEmployees.lastname;
+            employee.age = ObjectEmployees.age;
+
+        }
+    });
+
+    CleanHtml();
+    ShowEmployees();
+
+    form.reset();
+
+    form.querySelector('button[type="submit"]').textContent = 'Add';
+
+
+    editing = false;
+
+
+}
+
+function deleteemployee(id){
+    listOfemployees = listOfemployees.filter(employee => employee.id !== id);
+
+    CleanHtml();
+    ShowEmployees();
+
 }
 
 function CleanHtml(){
