@@ -55,9 +55,24 @@ function AddEmployees (){
     listOfemployees.push({...ObjectEmployees});
 
     ShowEmployees();
+
+    forms.reset();
+
+    CleanObject();
+}
+
+function CleanObject(){
+    ObjectEmployees.id = '';
+    ObjectEmployees.name = '';
+    ObjectEmployees.lastname = '';
+    ObjectEmployees.age = '';
+    
+    
 }
 
 function ShowEmployees(){
+
+
 
     CleanHtml();
 
@@ -90,9 +105,12 @@ function ShowEmployees(){
         divemployees.appendChild(paragraph);
         divemployees.appendChild(hr);
 
-    });
+    })
+}
 
-    function CleanHtml(){
-        const divemployees = document.querySelector('.divemployees');
+function CleanHtml(){
+    const divemployees = document.querySelector('.divemployees');
+    while(divemployees.firstChild){
+        divemployees.removeChild(divemployees.firstChild);
     }
 }
