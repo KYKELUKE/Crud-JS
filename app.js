@@ -51,10 +51,22 @@ function ValidateForm(e) {
 
 }
 
+function SaveLocalStorage(listOfemployees){
+    localStorage.setItem('employees',JSON.stringify(listOfemployees));
+
+}
+
+function obtainLocalStorage(){
+    listOfemployees = JSON.parse(localStorage.getItem('employees'));
+    ShowEmployees()
+}
+
+
 function AddEmployees (){
     listOfemployees.push({...ObjectEmployees});
 
-    ShowEmployees();
+    SaveLocalStorage(listOfemployees)
+    obtainLocalStorage()
 
     form.reset();
 
@@ -145,9 +157,9 @@ function editingEmployees(){
         }
     });
 
-    CleanHtml();
-    ShowEmployees();
 
+    SaveLocalStorage(listOfemployees);
+    obtainLocalStorage();
     form.reset();
 
     form.querySelector('button[type="submit"]').textContent = 'Add';
@@ -160,10 +172,8 @@ function editingEmployees(){
 
 function deleteemployee(id){
     listOfemployees = listOfemployees.filter(employee => employee.id !== id);
-
-    CleanHtml();
-    ShowEmployees();
-
+    SaveLocalStorage(listOfemployees)
+    obtainLocalStorage()
 }
 
 function CleanHtml(){
@@ -172,3 +182,5 @@ function CleanHtml(){
         divemployees.removeChild(divemployees.firstChild);
     }
 }
+
+obtainLocalStorage()
